@@ -1,4 +1,4 @@
-#include "tableCatalogue.h"
+#include "matrixCatalogue.h"
 
 using namespace std;
 
@@ -18,7 +18,9 @@ enum QueryType
     SELECTION,
     SORT,
     SOURCE,
-    UNDETERMINED
+    UNDETERMINED,
+
+    TRANSPOSE
 };
 
 enum BinaryOperator
@@ -76,6 +78,8 @@ public:
 
     string loadRelationName = "";
 
+    string tranposeMatrixName = "";
+
     string printRelationName = "";
 
     string projectionResultRelationName = "";
@@ -120,6 +124,7 @@ bool syntacticParseRENAME();
 bool syntacticParseSELECTION();
 bool syntacticParseSORT();
 bool syntacticParseSOURCE();
+bool syntacticParseTRANSPOSE();
 
 bool isFileExists(string tableName);
 bool isQueryFile(string fileName);

@@ -320,6 +320,8 @@ Cursor Table::getCursor()
     Cursor cursor(this->tableName, 0);
     return cursor;
 }
+
+
 /**
  * @brief Function that returns the index of column indicated by columnName
  * 
