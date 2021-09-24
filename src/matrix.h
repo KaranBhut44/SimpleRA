@@ -27,6 +27,9 @@ class Matrix
         uint N = 0;
         uint M = 32;
 
+        uint maxPossible = 256;
+        uint printConstraints = 20;
+
         uint maxR = 0;
         uint maxC = 0;
 
@@ -34,7 +37,7 @@ class Matrix
         uint zeroCount = 0;
 
         float ratio = 0;
-        bool isSparse = false;
+        bool isSparse;
        
         uint blockCount = 0;
         
@@ -53,7 +56,9 @@ class Matrix
         
         void unload();
 
-        string getPagePath(int pageIndexRow, int pageIndexCol);
+        string getPagePath(int pageIndexRow, int pageIndexCol, int index);
+        string getPagePathSparse(int getPagePathSparse, int index);
+
         void appendRowToPage(vector<int> row, int pageIndexRow, int pageIndexCol);
 
         void transpose();
@@ -61,8 +66,17 @@ class Matrix
 
         void writePage(vector<vector<int>> subMat, int pageIndexRow, int pageIndexCol, int inPageRowCount, int inPageColCount);
         
+        void transposeSparse();
+        void transposeNonSparse();
 
+        void printSparse();
+        void printNonSparse();
 
+        vector<int> getSparseMatrixNumber(int idx, unordered_map<int, bool> &flag, unordered_map<int, ifstream *> &filePointer, unordered_map<int, int> &fileNumber);
+        void doWork(int idx, unordered_map<int, bool> &flag, unordered_map<int, ifstream *> &filePointer, unordered_map<int, int> &fileNumber);
+
+        void makePermanentSparse();
+        void makePermanentNonSparse();
     /**
      * @brief Static function that takes a vector of valued and prints them out in a
      * comma seperated format.
