@@ -1,11 +1,11 @@
 ## Non-Sparse Matrix :
 ### Page Layout
- - In `matrix.h`, we have specified variable M = 32, that is number of rows of submatrix. So, submatrix size in 1 page = 32*32.(By Assuming `int` takes 4 byte, PageSize = 32\*32\*4 bytes = atmost 4KB per page). We can also change it for testing purpose.
+ - In `matrix.h`, we have specified variable M = 32, that is number of rows & colums of submatrix. So, submatrix size in 1 page = 32*32.(By Assuming `int` takes 4 byte, PageSize = 32\*32\*4 bytes = atmost 4KB per page). We can also change it for testing purpose.
  - so, basically we are storing submatrices of original matrix(shown in Figure 2) into different pages(page size<8KB). below is the example containing submatrices of atmost 2\*2 size, original matrix size is 5\*5.
-   - For example, Page_1_1 contains:
+  - For example, Page_1_1 contains:
      - 1 2
      - 6 7
-<img src="img1.PNG" alt="Figure1"/>
+     - <img src="Images/img1.PNG" alt="Figure1"/>
 
 ### Transpose Operation:
  - At first, perform transpose operation on entries of same page.(internally) (given in Figure 3)
@@ -17,7 +17,7 @@
  - Interchange page names(such that we don't have to copy values from 1 page to another). For example, page_1_2 will be changed to page_2_1 and vice versa. Diagonal matrices will stay as it is. (i.e. page_2_2).
  - Effectively, Matrix will look like Figure 4. 
  - Below is the example of 5\*5 matrix transpose using atmost 2\*2 submatrices.(pages)
-<img src="img2.PNG" alt="Figure2"/>
+<img src="Images/img2.PNG" alt="Figure2"/>
 
 ## Sparse Matrix:
 ### Compression Technique:
@@ -32,11 +32,11 @@
  - Diagonal number is given on right-bottom side of matrix.
  - Figure A contains original matrix and B contains it's transpose.
  - For example, Diagonal 1 will be stored in Page_1_0 as follows:
-   - 2 3 11
+   - 2 3 11 (Where row = 2, col = 3 and value  = 11)
    - 4 5 8
    - 5 6 7
 
-<img src="img3.PNG" alt="Figure3"/>
+  - <img src="Images/img3.PNG" alt="Figure3"/>
 
 ### Transpose Operation:
  - Swap first 2 values(row and column number) for each cell in each page.
@@ -54,4 +54,4 @@
  - If any diagonal don't contain any non-zero value, then page won't be created. Hence, space won't be wasted.
  - In worst case, Internal Fragmentation will occur in each diagonal's last page.
    - For example, we are storing 10 entries in each page and a diagonal contains 55 non-zero entries.      Then, 5 pages will be full. and last page will contain 5 entry. and 5 entry's space will remain      unusable.
-   - In worst case, # of diagonals = 2*n - 1. where n = # of rows of matrix. So, Not fully filled blocks (or) pages = (2*n-1)(1) = O(n).
+   - In worst case, if each diagonal covers one non zero value then there will be at least there will be 2*n - 1 pages. where n = # of rows of matrix.
